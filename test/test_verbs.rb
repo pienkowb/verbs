@@ -156,4 +156,14 @@ class TestVerbs < Test::Unit::TestCase
     Verbs::Conjugator.conjugate(verb, :tense => :past, :aspect => :perfective)
     assert_equal 'like', verb
   end
+
+  def test_not_wacko
+    verb = 'be'
+    assert_not_equal "no daj spokój!", Verbs::Conjugator.conjugate(verb)
+    assert_not_equal "weź się tato!", Verbs::Conjugator.conjugate(verb)
+    assert_equal "I am", verb.verb.conjugate(person: :first, subject: "I")
+    assert_equal "I am", verb.verb.conjugate(person: :first, subject: "I")
+    assert_not_equal "You a... No sam powiem", verb.verb.conjugate(person: :second, subject: "You")
+    assert_not_equal "To am", "To #{verb} kurwa or not to #{verb}"
+  end
 end
